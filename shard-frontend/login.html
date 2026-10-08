@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shard — вход</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;550;650;750;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <style>
+    .tabs { display: flex; gap: 6px; padding: 6px; border-radius: var(--r-full);
+            background: var(--md-surface-container); margin-bottom: 26px; }
+    .tab-pill { flex: 1; height: 42px; border-radius: var(--r-full); font-weight: 650; font-size: .9rem;
+                color: var(--md-on-surface-variant); position: relative; overflow: hidden;
+                transition: color var(--dur-m), background-color var(--dur-m), transform var(--dur-m) var(--ease-spring); }
+    .tab-pill:hover { transform: scale(1.02); }
+    .tab-pill.active { background: var(--md-primary); color: var(--md-on-primary); box-shadow: var(--e1); }
+  </style>
+</head>
+<body data-page="login">
+
+  <div class="aurora"><i></i><i></i><i></i></div>
+
+  <button class="icon-btn glass theme-corner" id="theme-toggle" aria-label="Сменить тему"></button>
+
+  <main class="auth-shell">
+    <section class="auth-card glass">
+
+      <div class="auth-logo">
+        <div class="shard-mark">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+            <path d="M12 2 4 9l8 13 8-13Z"/><path d="M4 9h16M12 2v20" opacity=".5"/>
+          </svg>
+        </div>
+      </div>
+      <h1 class="auth-title">SHARD</h1>
+      <p class="auth-subtitle" id="auth-subtitle">Войдите, чтобы продолжить общение</p>
+
+      <div class="tabs" role="tablist">
+        <button class="tab-pill active" data-tab="login" data-goto="login">Вход</button>
+        <button class="tab-pill" data-tab="register" data-goto="register">Регистрация</button>
+      </div>
+
+      <!-- ============ LOGIN ============ -->
+      <form class="auth-form" id="form-login" novalidate autocomplete="on">
+        <div class="field">
+          <input type="text" id="l-username" placeholder=" " autocomplete="username" spellcheck="false" maxlength="20">
+          <label for="l-username">Юзернейм</label>
+          <span class="hint" data-default="Только латиница, 4–20 символов"></span>
+        </div>
+
+        <div class="field">
+          <input type="password" id="l-password" placeholder=" " autocomplete="current-password" maxlength="32">
+          <label for="l-password">Пароль</label>
+          <button type="button" class="pw-toggle" aria-label="Показать пароль"></button>
+          <span class="hint" data-default="От 10 до 32 символов"></span>
+        </div>
+
+        <div class="captcha-box" id="captcha-login-mount">
+          <div class="field">
+            <input type="text" id="l-captcha" placeholder=" " autocomplete="off" spellcheck="false" maxlength="6">
+            <label for="l-captcha">Капча</label>
+            <span class="hint" data-default="Клик по картинке — обновить"></span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-graded btn-lg" id="l-submit">
+          <span class="btn-label">Войти в Shard</span>
+        </button>
+      </form>
+
+      <!-- ============ REGISTER ============ -->
+      <form class="auth-form hidden" id="form-register" novalidate autocomplete="on">
+        <div class="field">
+          <input type="text" id="r-username" placeholder=" " autocomplete="username" spellcheck="false" maxlength="20">
+          <label for="r-username">Юзернейм</label>
+          <span class="hint" data-default="4–20 символов, только a–z / A–Z"></span>
+        </div>
+
+        <div class="field">
+          <input type="text" id="r-display" placeholder=" " autocomplete="nickname" maxlength="40">
+          <label for="r-display">Отображаемое имя (необязательно)</label>
+          <span class="hint" data-default="Как вас будут видеть другие"></span>
+        </div>
+
+        <div class="field">
+          <input type="password" id="r-password" placeholder=" " autocomplete="new-password" maxlength="32">
+          <label for="r-password">Пароль</label>
+          <button type="button" class="pw-toggle" aria-label="Показать пароль"></button>
+          <div class="strength" id="pw-strength" data-level="0" aria-hidden="true">
+            <i></i><i></i><i></i><i></i>
+          </div>
+          <span class="hint" data-default="От 10 до 32 символов">Надёжность: <b id="pw-strength-label"></b></span>
+        </div>
+
+        <div class="field">
+          <input type="password" id="r-password2" placeholder=" " autocomplete="new-password" maxlength="32">
+          <label for="r-password2">Повторите пароль</label>
+          <button type="button" class="pw-toggle" aria-label="Показать пароль"></button>
+          <span class="hint" data-default=""></span>
+        </div>
+
+        <div class="captcha-box" id="captcha-register-mount">
+          <div class="field">
+            <input type="text" id="r-captcha" placeholder=" " autocomplete="off" spellcheck="false" maxlength="6">
+            <label for="r-captcha">Капча</label>
+            <span class="hint" data-default="Клик по картинке — обновить"></span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-graded btn-lg" id="r-submit">
+          <span class="btn-label">Создать аккаунт</span>
+        </button>
+      </form>
+
+      <p class="auth-switch">
+        Нет аккаунта? <a href="register.html" data-goto="register">Зарегистрироваться</a>
+      </p>
+    </section>
+  </main>
+
+  <script src="js/common.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // init eye icons
+    document.querySelectorAll('.pw-toggle').forEach(b => b.innerHTML = Shard.icon('eye', 20));
+  </script>
+</body>
+</html>

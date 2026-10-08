@@ -1,0 +1,28 @@
+[package]
+name = "shard-server"
+version = "0.1.0"
+edition = "2021"
+description = "Shard messenger — Rust backend (auth with Argon2id, JSON-file storage for now)"
+
+[dependencies]
+# HTTP
+axum = "0.7"
+tokio = { version = "1", features = ["full"] }
+tower-http = { version = "0.5", features = ["cors", "fs"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# пароли: Argon2id (как договорились)
+argon2 = "0.5"
+rand = "0.8"
+
+# капча на сервере (рисует png)
+captcha = "1.0"
+image = "0.25"
+
+# прочее
+uuid = { version = "1", features = ["v4", "serde"] }
+thiserror = "1"
+
+[profile.release]
+lto = true

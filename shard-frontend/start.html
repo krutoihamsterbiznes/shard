@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Shard — загружаем…</title>
+  <script>
+    // роутер: есть сессия → главная, иначе → вход
+    let sess = null;
+    try { sess = JSON.parse(localStorage.getItem('shard.session')); } catch {}
+    location.replace(sess ? 'index.html' : 'login.html');
+  </script>
+</head>
+<body>
+  <p style="font-family:system-ui;text-align:center;margin-top:40vh">Shard ✦</p>
+</body>
+</html>

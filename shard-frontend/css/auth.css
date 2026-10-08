@@ -1,0 +1,203 @@
+/* ============================================================
+   SHARD — auth.css  (login / register pages)
+   ============================================================ */
+
+.auth-shell {
+  height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.auth-card {
+  position: relative;
+  width: min(440px, 100%);
+  border-radius: var(--r-2xl);
+  padding: 40px 36px 34px;
+  animation: card-in var(--dur-xl) var(--ease-spring) both;
+}
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(40px) scale(.92); }
+}
+
+/* liquid-glass shimmer edge */
+.auth-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(140deg, rgba(255,255,255,.8), rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,.5));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+.auth-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.auth-logo .shard-mark {
+  width: 58px; height: 58px;
+  border-radius: 20px;
+  background: var(--grad-brand);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(108, 92, 232, .40);
+  animation: mark-float 5s ease-in-out infinite;
+}
+@keyframes mark-float {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%      { transform: translateY(-7px) rotate(3deg); }
+}
+.auth-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.auth-subtitle {
+  text-align: center;
+  margin: 6px 0 28px;
+  color: var(--md-on-surface-variant);
+  font-size: .95rem;
+}
+
+.auth-form { display: flex; flex-direction: column; gap: 18px; }
+
+/* password eye */
+.field .pw-toggle {
+  position: absolute;
+  right: 6px; top: 8px;
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  color: var(--md-on-surface-variant);
+  transition: background-color var(--dur-s), color var(--dur-s);
+}
+.field .pw-toggle:hover { background: color-mix(in srgb, var(--md-on-surface) 8%, transparent); }
+
+/* strength meter */
+.strength {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 0 2px;
+}
+.strength i {
+  flex: 1;
+  height: 5px;
+  border-radius: var(--r-full);
+  background: var(--md-outline-variant);
+  transition: background-color var(--dur-l) var(--ease-emph-dec), transform var(--dur-m) var(--ease-spring);
+  transform-origin: left;
+}
+.strength i.on { transform: scaleY(1.15); }
+.strength[data-level="1"] i.on { background: var(--md-error); }
+.strength[data-level="2"] i.on { background: var(--md-tertiary); }
+.strength[data-level="3"] i.on { background: var(--md-primary); }
+.strength[data-level="4"] i.on { background: var(--md-success); }
+
+/* captcha */
+.captcha-box {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+.captcha-challenge {
+  flex: none;
+  position: relative;
+  width: 150px;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  background:
+    repeating-linear-gradient(-38deg, rgba(108,92,232,.10) 0 7px, transparent 7px 15px),
+    repeating-linear-gradient(52deg, rgba(255,138,101,.12) 0 5px, transparent 5px 13px),
+    var(--md-surface-container-low);
+  display: grid;
+  place-items: center;
+  transition: transform var(--dur-m) var(--ease-spring), box-shadow var(--dur-m);
+  box-shadow: inset 0 0 0 1.5px var(--md-outline-variant);
+}
+.captcha-challenge:hover { transform: scale(1.03); box-shadow: inset 0 0 0 1.5px var(--md-primary); }
+.captcha-challenge:active { transform: scale(.97); }
+.captcha-challenge span {
+  font-family: 'Courier New', monospace;
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transform: skewX(-6deg);
+  filter: url(#captcha-warp);
+}
+.captcha-challenge::after {
+  content: "↻";
+  position: absolute;
+  right: 6px; bottom: 2px;
+  font-size: .85rem;
+  color: var(--md-outline);
+}
+.captcha-box .field { flex: 1; }
+
+/* links row */
+.auth-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+.auth-switch {
+  text-align: center;
+  margin-top: 22px;
+  font-size: .9rem;
+  color: var(--md-on-surface-variant);
+}
+.auth-switch a { font-weight: 700; }
+
+/* theme toggle on auth pages */
+.theme-corner {
+  position: fixed;
+  top: 18px; right: 18px;
+  z-index: 10;
+}
+
+/* shake on error */
+.shake { animation: shake .5s var(--ease-standard); }
+@keyframes shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-7px); }
+  40%, 60% { transform: translateX(7px); }
+}
+
+/* submit loading spinner */
+.btn.loading .btn-label { opacity: 0; }
+.btn.loading::after {
+  content: "";
+  position: absolute;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 3px solid color-mix(in srgb, currentColor 35%, transparent);
+  border-top-color: currentColor;
+  animation: spin .8s linear infinite;
+}
+
+@media (max-width: 520px) {
+  .auth-card { padding: 30px 22px 26px; border-radius: var(--r-xl); }
+  .captcha-challenge { width: 120px; }
+}
